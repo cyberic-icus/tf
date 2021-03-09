@@ -13,5 +13,5 @@ class AlbumDAO{
         Album("ACDC", "Last Action Hero", 1993),
         Album("zz top", "Tres Hombres", 1973)
     )
-    fun getAuthorByName(name: String) = albums.find{it.name == name}
+    fun getNameByAuthor(Author: String) = albums.find{it.Author == Author}
 }
