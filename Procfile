@@ -1,1 +1,1 @@
-web: java -jar target/spring-1.0-SNAPSHOT.jar
+web: java -Dserver.port=33500 -jar target/spring-1.0-SNAPSHOT.jar
