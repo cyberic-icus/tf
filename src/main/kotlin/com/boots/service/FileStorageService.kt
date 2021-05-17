@@ -1,7 +1,7 @@
 package com.boots.service
 
 import com.boots.entity.FileDB
-import com.boots.entity.User
+import com.boots.entity.MyUser
 import com.boots.repository.FileDBRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -32,7 +32,7 @@ class FileStorageService {
     fun store(file: MultipartFile) {
         val fileName = StringUtils.cleanPath(Objects.requireNonNull(file.originalFilename))
         val FileDB = FileDB(fileName, file.contentType, file.bytes)
-        val user = SecurityContextHolder.getContext().authentication.principal as User
+        val user = SecurityContextHolder.getContext().authentication.principal as MyUser
         try { user.addFile(FileDB) } catch (e: Exception) { }
 
         fileDBRepository!!.save(FileDB)
@@ -47,12 +47,12 @@ class FileStorageService {
 
     val myFiles: List<FileDB>
         get() {
-            val user = SecurityContextHolder.getContext().authentication.principal as User
+            val user = SecurityContextHolder.getContext().authentication.principal as MyUser
             return user.getFiles()
         }
 
     fun deleteFile(id: Long) {
-        val user = SecurityContextHolder.getContext().authentication.principal as User
+        val user = SecurityContextHolder.getContext().authentication.principal as MyUser
         if (fileDBRepository!!.findById(id).isPresent) {
             val file = fileDBRepository.findById(id).get()
             try { user.removeFile(file) } catch (e: Exception) { }

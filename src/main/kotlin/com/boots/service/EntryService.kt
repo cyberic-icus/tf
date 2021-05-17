@@ -1,7 +1,7 @@
 package com.boots.service
 
 import com.boots.entity.Entry
-import com.boots.entity.User
+import com.boots.entity.MyUser
 import com.boots.repository.EntryRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
@@ -17,7 +17,7 @@ class EntryService {
 
     @Throws(IOException::class)
     fun save(entry: Entry) {
-        val user = SecurityContextHolder.getContext().authentication.principal as User
+        val user = SecurityContextHolder.getContext().authentication.principal as MyUser
         try {
             if(!(entry.header.equals("")&&(entry.body.equals("")))){
                 user.addEntry(entry)
@@ -33,12 +33,12 @@ class EntryService {
         get() { return entryRepository?.findAll() as List<Entry?> }
     val myEntries: List<Entry>
         get() {
-            val user = SecurityContextHolder.getContext().authentication.principal as User
+            val user = SecurityContextHolder.getContext().authentication.principal as MyUser
             return user.getEntries()
         }
 
     fun deleteEntry(id: Long) {
-        val user = SecurityContextHolder.getContext().authentication.principal as User
+        val user = SecurityContextHolder.getContext().authentication.principal as MyUser
         if (entryRepository!!.findById(id).isPresent) {
             val entry = entryRepository.findById(id).get()
             try { user.removeEntry(entry)

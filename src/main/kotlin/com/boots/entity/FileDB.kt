@@ -17,7 +17,7 @@ open class FileDB : Serializable {
     lateinit var data: ByteArray
 
     @ManyToOne(fetch = FetchType.LAZY)
-    var user: User? = null
+    var myUser: MyUser? = null
 
     constructor() {}
     constructor(name: String?, type: String?, data: ByteArray) {

@@ -14,7 +14,7 @@ open class Entry : Serializable {
     var body: String? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
-    var user: User? = null
+    var myUser: MyUser? = null
 
     constructor() {}
     constructor(header: String?, body: String?) {

@@ -1,9 +1,9 @@
 package com.boots.repository
 
-import com.boots.entity.User
+import com.boots.entity.MyUser
 import org.springframework.data.jpa.repository.JpaRepository
 
 
-interface UserRepository : JpaRepository<User?, Long?> {
-    fun findByUsername(username: String?): User?
+interface UserRepository : JpaRepository<MyUser?, Long?> {
+    fun findByUsername(username: String?): MyUser?
 }

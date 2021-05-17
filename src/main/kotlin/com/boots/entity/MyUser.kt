@@ -10,7 +10,7 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table
-open class User : UserDetails {
+open class MyUser : UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
@@ -20,15 +20,15 @@ open class User : UserDetails {
     @Transient
     var passwordConfirm: String? = null
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "myUser", cascade = [CascadeType.ALL], orphanRemoval = true)
     private val files: MutableList<FileDB> = ArrayList()
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "myUser", cascade = [CascadeType.ALL], orphanRemoval = true)
     private val entries: MutableList<Entry> = ArrayList()
     @Transactional
     fun addFile(file: FileDB) {
         files.add(file)
-        file.user = this
+        file.myUser = this
     }
 
     fun getFiles(): List<FileDB> {
@@ -41,7 +41,7 @@ open class User : UserDetails {
                 files.remove(f)
             }
         }
-        file.user = null
+        file.myUser = null
     }
 
     @Throws(Exception::class)
@@ -53,7 +53,7 @@ open class User : UserDetails {
                 entries.remove(f)
             }
         }
-        entry.user = null
+        entry.myUser = null
     }
 
     fun getEntries(): List<Entry> {
@@ -62,7 +62,7 @@ open class User : UserDetails {
 
     fun addEntry(entry: Entry) {
         entries.add(entry)
-        entry.user = this
+        entry.myUser = this
     }
 
     override fun getUsername(): @Size(message = "Не меньше 5 знаков", min = 2) String? {
