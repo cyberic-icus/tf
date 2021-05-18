@@ -60,9 +60,7 @@ class FileController {
                 val os = response.outputStream
                 os.write(file.data)
                 os.close()
-            } catch (e: Exception) {
-                println(e)
-            }
+            } catch (e: Exception) { }
         } else {
             model.addAttribute("getListFiles", storageService?.myFiles)
         }
